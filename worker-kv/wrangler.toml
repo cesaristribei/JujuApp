@@ -4,4 +4,4 @@ compatibility_date = "2024-01-01"
 
 [[kv_namespaces]]
 binding = "JUJU_STORE"
-id = "COLE_AQUI_SEU_KV_ID"
+id = "dec08e76fa05488a992e1d34f52f348b"
