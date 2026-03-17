@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Plano Juju</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="container">
+<h2>Checklist</h2>
+<div id="grid"></div>
+</div>
+
+<script>
+const API="https://SEU-WORKER-URL?user=juju";
+
+function build(){
+let g=document.getElementById("grid");
+for(let i=0;i<20;i++){
+let d=document.createElement("div");
+d.className="box";
+d.onclick=()=>toggle(d,i);
+d.dataset.id=i;
+g.appendChild(d);
+}
+}
+
+async function load(){
+let r=await fetch(API);
+let data=await r.json();
+document.querySelectorAll(".box").forEach(el=>{
+if(data[el.dataset.id]) el.classList.add("on");
+});
+}
+
+async function save(){
+let data={};
+document.querySelectorAll(".box").forEach(el=>{
+data[el.dataset.id]=el.classList.contains("on");
+});
+await fetch(API,{method:"POST",body:JSON.stringify(data)});
+}
+
+function toggle(el){
+el.classList.toggle("on");
+save();
+}
+
+build();
+load();
+</script>
+</body></html>
